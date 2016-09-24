@@ -22,7 +22,7 @@ public class Board implements Serializable {
         game.printBoard();
 
         while (!game.gameOver) {
-            readComand();
+            readCommand();
         }
 
         commandReader.close();
@@ -64,7 +64,7 @@ public class Board implements Serializable {
         System.out.println();
     }
 
-    private static void readComand() throws IOException {
+    private static void readCommand() throws IOException {
         System.out.println("Player: ");
         try {
             String command = commandReader.readLine();
