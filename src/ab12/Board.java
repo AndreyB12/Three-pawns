@@ -10,17 +10,22 @@ import java.io.Serializable;
  */
 public class Board implements Serializable {
     private static Board game;
-    private int[][] board = new int[3][8];
+    private int[][] board;
     private Pawn[][] pawns = new Pawn[3][2];
-
+    private boolean gameOver = false;
     private String[] cellTypes = new String[]{"   ", " @ ", " O "};
+    private static BufferedReader commandReader;
 
     public static void main(String... args) throws IOException {
+        commandReader = new BufferedReader(new InputStreamReader(System.in));
         game = new Board();
         game.printBoard();
 
-        readComand();
+        while (!game.gameOver) {
+            readComand();
+        }
 
+        commandReader.close();
     }
 
     private Board() {
@@ -34,6 +39,7 @@ public class Board implements Serializable {
     }
 
     private void draw() {
+        board = new int[3][8];
         for (int i = 0; i < pawns[0].length; i++) {
             for (int j = 0; j < pawns.length; j++) {
                 board[pawns[j][i].getY() - 1][pawns[j][i].getX() - 1] = i + 1;
@@ -59,10 +65,24 @@ public class Board implements Serializable {
     }
 
     private static void readComand() throws IOException {
-        System.out.print("Player: ");
-        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-        String command = bf.readLine();
-        System.out.println(command);
+        System.out.println("Player: ");
+        try {
+            String command = commandReader.readLine();
+            if (command.toLowerCase().equals("exit")) {
+                game.gameOver = true;
+                return;
+            }
+            if (command.toLowerCase().equals("help") || command.toLowerCase().equals("?")) {
+                //printHelp();
+                return;
+            }
+            game.pawns[0][0].setX(Integer.parseInt(command));
+            game.draw();
+            game.printBoard();
+        } catch (Exception e) {
+            System.out.println("Wrong command!");
+        }
+
     }
 
     private enum RowTypes {
