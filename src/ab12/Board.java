@@ -12,10 +12,10 @@ public class Board implements Serializable {
     public boolean gameOver = false;
     private String[] cellTypes = new String[]{"   ", " @ ", " O "};
 
-    public static Board startNewGame()
-    {
+    public static Board startNewGame() {
         return new Board();
     }
+
     private Board() {
         pawns[0][0] = new Pawn(1, 1);
         pawns[1][0] = new Pawn(2, 2);
@@ -58,10 +58,11 @@ public class Board implements Serializable {
     }
 
     public void movePawn(String newPlace) throws Exception {
-        try
-        {
-          int i=  12/0;
+        try {
+            char[] coord = newPlace.toCharArray();
+            pawns[RowTypes.valueOf(String.valueOf(coord[0]).toUpperCase()).ordinal()][0].setX(Integer.parseInt(String.valueOf(coord[1])));
+        } catch (Exception e) {
+            throw new Exception("Invalid move");
         }
-        catch (Exception e){throw new Exception("Invalid move");}
     }
 }
