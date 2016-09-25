@@ -1,33 +1,21 @@
 package ab12;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.Serializable;
 
 /**
  * Created by butkoav on 24.09.2016.
  */
 public class Board implements Serializable {
-    private static Board game;
+
     private int[][] board;
     private Pawn[][] pawns = new Pawn[3][2];
-    private boolean gameOver = false;
+    public boolean gameOver = false;
     private String[] cellTypes = new String[]{"   ", " @ ", " O "};
-    private static BufferedReader commandReader;
 
-    public static void main(String... args) throws IOException {
-        commandReader = new BufferedReader(new InputStreamReader(System.in));
-        game = new Board();
-        game.printBoard();
-
-        while (!game.gameOver) {
-            readCommand();
-        }
-
-        commandReader.close();
+    public static Board startNewGame()
+    {
+        return new Board();
     }
-
     private Board() {
         pawns[0][0] = new Pawn(1, 1);
         pawns[1][0] = new Pawn(2, 2);
@@ -47,7 +35,8 @@ public class Board implements Serializable {
         }
     }
 
-    private void printBoard() {
+    public void printBoard() {
+        draw();
         System.out.println("    1   2   3   4   5   6   7   8  ");
         System.out.println("   -------------------------------");
         for (int i = 0; i < board.length; i++) {
@@ -64,28 +53,15 @@ public class Board implements Serializable {
         System.out.println();
     }
 
-    private static void readCommand() throws IOException {
-        System.out.println("Player: ");
-        try {
-            String command = commandReader.readLine();
-            if (command.toLowerCase().equals("exit")) {
-                game.gameOver = true;
-                return;
-            }
-            if (command.toLowerCase().equals("help") || command.toLowerCase().equals("?")) {
-                //printHelp();
-                return;
-            }
-            game.pawns[0][0].setX(Integer.parseInt(command));
-            game.draw();
-            game.printBoard();
-        } catch (Exception e) {
-            System.out.println("Wrong command!");
-        }
-
-    }
-
     private enum RowTypes {
         A, B, C
+    }
+
+    public void movePawn(String newPlace) throws Exception {
+        try
+        {
+          int i=  12/0;
+        }
+        catch (Exception e){throw new Exception("Invalid move");}
     }
 }
