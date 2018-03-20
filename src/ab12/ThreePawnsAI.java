@@ -62,7 +62,7 @@ public class ThreePawnsAI {
 		@Override
 		public String toString()
 		{
-			return Board.RowTypes.values()[this.y].toString()+this.getX();
+			return Board.RowTypes.values()[getY()].toString()+getX();
 		}
 		
 	}

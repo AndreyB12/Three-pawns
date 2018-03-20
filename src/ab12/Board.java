@@ -1,8 +1,7 @@
 package ab12;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Collection;
+
 
 /**
  * Created by butkoav on 24.09.2016.
