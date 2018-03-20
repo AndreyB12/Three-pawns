@@ -35,7 +35,11 @@ public class ThreePawns {
                 //printHelp();
                 return;
             }
-            game.movePawn(command);
+            game.movePawn(command); //Players move
+            System.out.println("AI: ");
+            command = ThreePawnsAI.nextMove(game);
+            System.out.println(command);
+            game.movePawn(command, false); //AIs move
             game.printBoard();
         } catch (Exception e) {
             System.out.println(e.getMessage());

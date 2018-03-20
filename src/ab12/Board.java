@@ -1,13 +1,19 @@
 package ab12;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * Created by butkoav on 24.09.2016.
  */
 public class Board implements Serializable {
 
-    private int[][] board;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3124562988342616432L;
+	private int[][] board;
     private Pawn[][] pawns = new Pawn[3][2];
     public boolean gameOver = false;
     private String[] cellTypes = new String[]{"   ", " @ ", " O "};
@@ -53,16 +59,28 @@ public class Board implements Serializable {
         System.out.println();
     }
 
-    private enum RowTypes {
+    public static enum RowTypes {
         A, B, C
     }
 
-    public void movePawn(String newPlace) throws Exception {
+    public void movePawn(String newPlace, Boolean isPlayer) throws Exception {
+    	int playerIndex = isPlayer?0:1;
         try {
             char[] coord = newPlace.toCharArray();
-            pawns[RowTypes.valueOf(String.valueOf(coord[0]).toUpperCase()).ordinal()][0].setX(Integer.parseInt(String.valueOf(coord[1])));
+            pawns[RowTypes.valueOf(String.valueOf(coord[0]).toUpperCase()).ordinal()][playerIndex].setX(Integer.parseInt(String.valueOf(coord[1])));
         } catch (Exception e) {
             throw new Exception("Invalid move");
         }
     }
+    public void movePawn(String newPlace) throws Exception {
+    	movePawn(newPlace, true);
+    }
+    public Pawn[][] getPawns()
+    {
+    	Pawn[][] pawnsCopy = new Pawn[3][];
+    	for(int i =0;i<3;i++)
+    	{
+    		pawnsCopy[i] = pawns[i].clone();
+    	}
+    	return pawnsCopy;}
 }
